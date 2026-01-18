@@ -1,0 +1,134 @@
+name: Sync and Tag
+
+on:
+  schedule:
+    # Daily sync at 01:00 UTC. This will run every day, including Sunday.
+    - cron: '0 1 * * *'
+    # Monthly tag at 02:00 UTC on the 1st of every month.
+    - cron: '0 2 1 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    # Run for daily schedule and on manual dispatch
+    if: github.event_name == 'workflow_dispatch' || github.event.schedule == '0 1 * * *'
+    steps:
+      - name: Checkout local repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Checkout remote repository (meta-rules-dat)
+        uses: actions/checkout@v4
+        with:
+          repository: MetaCubeX/meta-rules-dat
+          ref: sing
+          path: meta-rules-dat
+
+      - name: Switch or create sing branch
+        id: switch_branch
+        run: |
+          # Configure git user for potential commit
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
+
+          # If remote 'sing' branch exists, switch to it.
+          if git ls-remote --exit-code --heads origin sing; then
+            echo "Switching to 'sing' branch."
+            git fetch origin
+            git switch sing
+          else
+            # Otherwise, create a new orphan branch named 'sing'.
+            echo "Creating new orphan branch 'sing'."
+            git switch --orphan sing
+            # An orphan branch starts with no commits and an empty working directory.
+            # Create an initial empty commit so the branch can be pushed.
+            git commit --allow-empty -m "chore: initial commit for sing branch"
+          fi
+
+      - name: Sync JSON files
+        working-directory: ./meta-rules-dat
+        run: |
+          # For each subdirectory containing .json files, sync it to the root of the repo.
+          # This is safer than a single rsync from the root, as it scopes the --delete
+          # operation to only the directories managed by this sync.
+          find . -type f -name "*.json" -printf '%h\n' | sort -u | while read -r dir; do
+            # Create the destination directory in the root of the repo if it doesn't exist
+            mkdir -p "../$dir"
+            # Sync the directory
+            rsync -am --delete --include='*.json' --exclude='*' "$dir/" "../$dir/"
+          done
+
+      - name: Split directories with >100 json files
+        id: split_files
+        run: |
+          # Clean up old split directories to ensure a clean slate, excluding the source checkout folder.
+          find . -path ./meta-rules-dat -prune -o -type d -name "part_*" -exec rm -rf {} + || echo "No existing part_* directories to remove."
+          # Find all directories containing json files, excluding the source checkout folder.
+          find . -path ./meta-rules-dat -prune -o -type f -name "*.json" -printf '%h\n' | sort -u | while read -r dir; do
+              (
+                  cd "$dir" || exit 1
+                  # Use nullglob to avoid errors if no files match; crucial for empty directories
+                  shopt -s nullglob
+                  file_list=(*.json)
+                  count=${#file_list[@]}
+
+                  if [ "$count" -gt 100 ]; then
+                      echo "Directory '$dir' has $count files. Splitting into subdirectories."
+                      sub_dir_num=1
+                      # Loop through files in batches of 100
+                      for ((i=0; i<count; i+=100)); do
+                          target_dir="part_${sub_dir_num}"
+                          mkdir -p "$target_dir"
+
+                          # Get a slice of the file list
+                          slice=("${file_list[@]:i:100}")
+
+                          # Move up to 100 files at once. This is much more efficient than one by one.
+                          mv "${slice[@]}" "$target_dir/"
+
+                          sub_dir_num=$((sub_dir_num+1))
+                      done
+                  fi
+              )
+          done
+
+      - name: Commit and push changes
+        run: |
+          # Remove the temporary checkout directory so it's not committed
+          rm -rf ./meta-rules-dat
+
+          # Git user is already configured in a previous step
+          if [[ -n $(git status --porcelain) ]]; then
+            git add .
+            git commit -m "feat: sync json files from MetaCubeX/meta-rules-dat"
+            git push origin sing
+          else
+            echo "No changes to commit."
+          fi
+
+  tag:
+    runs-on: ubuntu-latest
+    # Run only for monthly schedule.
+    if: github.event.schedule == '0 2 1 * *'
+    steps:
+      - name: Checkout sing branch
+        uses: actions/checkout@v4
+        with:
+          ref: sing
+
+      - name: Create and push tag
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          TAG_NAME="v$(date +'%Y%m%d')"
+          if git rev-parse "$TAG_NAME" >/dev/null 2>&1; then
+            echo "Tag $TAG_NAME already exists."
+          else
+            git tag $TAG_NAME
+            git push origin $TAG_NAME
+          fi
