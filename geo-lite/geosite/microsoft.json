@@ -4,6 +4,7 @@
     {
       "domain": "vsmarketplacebadge.apphb.com",
       "domain_suffix": [
+        "1drv.com",
         "1drv.ms",
         "21vbc.com",
         "21vbluecloud.com",
@@ -246,6 +247,7 @@
         "live.com.au",
         "live.eu",
         "live.net",
+        "livefilestore.com",
         "livetileedge.dsx.mp.microsoft.com.edgekey.net",
         "livingyourambition.com",
         "localytics.com",
@@ -376,6 +378,7 @@
         "microsoftonline.com",
         "microsoftpartnercommunity.com",
         "microsoftpartnersolutions.com",
+        "microsoftpersonalcontent.com",
         "microsoftreactor.cn",
         "microsoftreactor.com.cn",
         "microsoftreactor.info",
@@ -500,6 +503,7 @@
         "onecollector.cloudapp.aria",
         "onedrive.co",
         "onedrive.co.uk",
+        "onedrive.com",
         "onedrive.eu",
         "onedrive.net",
         "onedrive.org",
@@ -555,6 +559,8 @@
         "sfbassets.net",
         "sfx.ms",
         "sharepoint.cn",
+        "sharepoint.com",
+        "sharepointonline.com",
         "signalr.net",
         "skype",
         "skype.com",
@@ -562,6 +568,7 @@
         "skypeassets.com",
         "skypeassets.net",
         "skypeforbusiness.com",
+        "spoprod-a.akamaihd.net",
         "sprinklesapp.com",
         "sqlserveronlinux.com",
         "staffhub.ms",
@@ -659,18 +666,11 @@
         "xboxstudios.com",
         "xbx.lv",
         "yammer.com",
-        "yammerusercontent.com",
-        "1drv.com",
-        "livefilestore.com",
-        "microsoftpersonalcontent.com",
-        "onedrive.com",
-        "sharepoint.com",
-        "sharepointonline.com",
-        "spoprod-a.akamaihd.net"
+        "yammerusercontent.com"
       ],
       "domain_keyword": [
-        "microsoft",
         "1drv",
+        "microsoft",
         "onedrive",
         "skydrive"
       ]
