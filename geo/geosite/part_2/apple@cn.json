@@ -9,6 +9,7 @@
         "amp-api-search-edge.apps.apple.com",
         "amp-api.apps.apple.com",
         "amp-api.music.apple.com",
+        "aod-ssl.itunes.apple.com",
         "aod.itunes.apple.com",
         "api-edge.apps.apple.com",
         "apptrailers.itunes.apple.com",
@@ -267,13 +268,6 @@
         "xn--czrs0t4phtr3a.cn",
         "xn--fiqs8sxootzz.cn",
         "xn--ohq11k7pl25iyo8a.cn",
-        "beats1.cn",
-        "beats1.com.cn",
-        "beats2.com.cn",
-        "beats4.cn",
-        "beatsbydre.com",
-        "beatsbydre.com.cn",
-        "beatsep.cn",
         "apple-icloud.cn",
         "appleicloud.cn",
         "icloud-apple.cn",
@@ -288,7 +282,14 @@
         "researchkit.cn",
         "researchkit.com.cn",
         "swiftui.cn",
-        "swiftui.com.cn"
+        "swiftui.com.cn",
+        "beats1.cn",
+        "beats1.com.cn",
+        "beats2.com.cn",
+        "beats4.cn",
+        "beatsbydre.com",
+        "beatsbydre.com.cn",
+        "beatsep.cn"
       ]
     }
   ]

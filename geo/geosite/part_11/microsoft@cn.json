@@ -160,6 +160,10 @@
         "azure-dns-8.cn",
         "azure-dns-9.cn",
         "azure-dns-10.cn",
+        "microsoftreactor.cn",
+        "microsoftreactor.com.cn",
+        "reactorms.com.cn",
+        "xboxlive.cn",
         "bing.com.cn",
         "cn.bing.com",
         "cn.bing.net",
@@ -167,12 +171,8 @@
         "ditu.live.com",
         "r.bing.com",
         "th.bing.com",
-        "microsoftreactor.cn",
-        "microsoftreactor.com.cn",
-        "reactorms.com.cn",
         "microsoftnews.cn",
-        "msn.cn",
-        "xboxlive.cn"
+        "msn.cn"
       ]
     }
   ]
