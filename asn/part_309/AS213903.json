@@ -2,7 +2,7 @@
   "version": 2,
   "rules": [
     {
-      "ip_cidr": "2406:840:fdec::/48"
+      "ip_cidr": "2406:840:fded::/48"
     }
   ]
 }
