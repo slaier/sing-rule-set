@@ -2,7 +2,7 @@
   "version": 2,
   "rules": [
     {
-      "ip_cidr": "2602:feda:df1::/48"
+      "ip_cidr": "2602:feda:df0::/47"
     }
   ]
 }

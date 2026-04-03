@@ -1,8 +1,0 @@
-{
-  "version": 2,
-  "rules": [
-    {
-      "ip_cidr": "2602:ffa9:dcc::/48"
-    }
-  ]
-}
