@@ -3,8 +3,9 @@
   "rules": [
     {
       "domain_suffix": [
-        "log-upload.mihoyo.com",
-        "log-upload-os.hoyoverse.com"
+        "funpay.com",
+        "funpay.ru",
+        "sfunpay.com"
       ]
     }
   ]
