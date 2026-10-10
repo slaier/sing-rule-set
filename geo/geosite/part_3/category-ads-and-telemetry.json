@@ -160,7 +160,13 @@
         "api.mindbox.cloud",
         "api.mindbox.ru",
         "sentry.mindbox.ru",
-        "sentry.popmechanic.ru"
+        "sentry.popmechanic.ru",
+        "copilot-telemetry-service.githubusercontent.com",
+        "copilot-telemetry.githubusercontent.com",
+        "copilot-telemetry-service.githubusercontent.com",
+        "copilot-telemetry.githubusercontent.com",
+        "incoming.telemetry.mozilla.org",
+        "incoming-telemetry.thunderbird.net"
       ],
       "domain_suffix": [
         "uberads.com",
@@ -846,7 +852,9 @@
         "e.mindbox.ru",
         "g.mindbox.ru",
         "s.mindbox.ru",
-        "ad.api.moji.com"
+        "ad.api.moji.com",
+        "cafe.github.com",
+        "collector.github.com"
       ],
       "domain_regex": "^speed\\.(coe|open)\\.ad\\.[a-z]{2,6}\\.prod\\.hosts\\.ooklaserver\\.net$"
     }
